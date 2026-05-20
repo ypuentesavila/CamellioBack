@@ -10,6 +10,7 @@ export class MessagesController {
 
   @Get()
   findAll(@Query('chatId') chatId: string) {
+    if (!chatId) return [];
     return this.messagesService.findByChatId(chatId);
   }
 

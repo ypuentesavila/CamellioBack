@@ -53,8 +53,9 @@ export class AuthService {
       } as any,
     });
     await this.usersRepo.save(user);
+    const saved = await this.usersRepo.findOne({ where: { id: user.id } });
     const token = this.jwtService.sign({ sub: user.id, role: user.role });
-    const { passwordHash: _, ...safeUser } = user;
+    const { passwordHash: _, ...safeUser } = saved!;
     return { token, user: safeUser };
   }
 
@@ -77,8 +78,9 @@ export class AuthService {
       } as any,
     });
     await this.usersRepo.save(user);
+    const saved = await this.usersRepo.findOne({ where: { id: user.id } });
     const token = this.jwtService.sign({ sub: user.id, role: user.role });
-    const { passwordHash: _, ...safeUser } = user;
+    const { passwordHash: _, ...safeUser } = saved!;
     return { token, user: safeUser };
   }
 
